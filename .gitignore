@@ -1,0 +1,16 @@
+# .gitignore
+
+# Encrypted API keys
+openai_api_key.enc
+google_api_key.enc
+encryption.key
+
+# Environment variables
+.env
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Other files
+progress.log
