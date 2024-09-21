@@ -109,6 +109,7 @@ class ControlSystem:
         )
         response = self.gpt.send_message(prompt, model="gpt-4o-mini")
         next_action = response.strip()
+        print(next_action)
         if "plan complete" in next_action.lower():
             return None
         return next_action
@@ -121,7 +122,7 @@ class ControlSystem:
             action (str): The action to execute.
 
         Returns:
-            Tuple[bool, str]: A tuple indicating success and the result or error message.
+            str: The result of the action.
         """
         prompt = f"Action: {action}\nPlease perform this action and provide the result."
         response = self.gpt.send_message(prompt, model="gpt-4o-mini")
@@ -133,7 +134,7 @@ class ControlSystem:
         """
         logging.info("Evaluating results.")
         history_content = "\n".join([
-            f"Step {idx + 1}:\nAction: {entry['action']}\nSuccess: {entry['success']}\nResult: {entry['result']}\n"
+            f"Step {idx + 1}:\nAction: {entry['action']} \nResult: {entry['result']}\n"
             for idx, entry in enumerate(self.execution_history)
         ])
 
@@ -146,7 +147,7 @@ class ControlSystem:
         )
         evaluation = self.gpt.send_message(prompt, model="gpt-4o-mini")
         logging.info(f"Evaluation: {evaluation}")
-        print(f"Evaluation:\n{evaluation}")
+        # print(f"Evaluation:\n{evaluation}")
 
     def notify_user(self):
         """

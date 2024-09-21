@@ -16,7 +16,7 @@ def execute_code(code):
     """
     try:
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
-            temp_file.write(code)
+            temp_file.write(code.replace("\\n", "\n"))
             temp_file_path = temp_file.name
 
         logging.info(f"Executing code from temporary file: {temp_file_path}")
