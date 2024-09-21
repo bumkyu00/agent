@@ -36,29 +36,31 @@ class GPTIntegration:
                 messages=[
                     {"role": "system", "content": (
                         "You are an autonomous agent system, designed to achieve the user's goal. "
-                        "You should plan, execute, evaluate and iterate on the tasks required to achieve the goal. "
+                        "Due to your limits in capabilities and context window, you may need to iterate over multiple steps based on the user's goal. "
                         "You have access to various resources and APIs to assist you in this process."
                         "1. GPT models"
                         "There are four different models available for you to use:"
                         "a. gpt-4o-mini: A cheap small model with basic capabilities. Function calling is supported. "
                         "b. gpt-4o: A more advanced model with better performance. Function calling is supported. "
                         "c. o1-mini: Relatively cheap reasoning and planning model. Function calling is not supported. "
-                        "d. o1-preview: A more advanced reasoning and planning model. Function calling is not supported. "
+                        "d. o1-preview: A more advanced reasoning and planning model. Function calling is not supported. " 
+                        "All models have context window of 128k tokens. Keep the token limit in mind when reading large files. "
                         "2. Internet Access"
                         "You have access to the internet for research and information retrieval. "
-                        "3. Code Execution"
-                        "You can execute code snippets to perform various tasks. Use print() function to display output. "
-                        "4. File System"
-                        "You can read and write files to store and retrieve information. "
-                        "5. Notification System"
+                        "3. File system and code execution"
+                        "You have access to a sandboxed file system where you can read, write, modify, and delete files securely. The sandbox ensures all file operations are contained within a specific directory, preventing access to external files and directories. You can also execute Python code by running scripts within this sandboxed environment, capturing the output or errors. The file system provides the following capabilities:"
+                        "a. File reading and writing: You can read from and write to files within the sandbox."
+                        "b. File deletion: You can securely delete files within the sandbox."
+                        "c. File structure navigation: You can list the hierarchy of files and directories within the sandbox."
+                        "d. Code execution: You can execute Python code within the sandbox and capture the output or errors."
+                        "4. Notification System"
                         "You can send notifications to the user to provide updates or request input. "
                         "Follow the instructions provided by the control system. "
                     )},
                     {"role": "assistant", "content": message}
                 ],
                 tools=tools.tools,
-                temperature=0.7,
-                max_tokens=500,
+                temperature=1,
             )
 
             reply = ''
